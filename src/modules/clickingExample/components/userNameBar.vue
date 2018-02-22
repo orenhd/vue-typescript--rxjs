@@ -1,9 +1,12 @@
 <template>
     <div>
-        <md-field>
-            <label>User Name</label>
-            <md-input :value="userName" @change="userNameChanged($event.target.value)"></md-input>
-        </md-field>
+        <v-text-field
+            name="user-name"
+            :label="$t('clickingExample.userName')"
+            id="user-name"
+            :value="userName"
+            @change="userNameChanged($event)"
+        ></v-text-field>
     </div>
 </template>
 
@@ -24,11 +27,4 @@ export default class UserNameBar extends Vue {
 
 <style lang="scss" scoped>
     @import '~styles/variables'; //tilde to resolve 'like a module'
-
-    .genre-select {
-        height: 2em;
-        font-size: 1em;
-        margin: 0.25em 1em;
-    }
-    
 </style>

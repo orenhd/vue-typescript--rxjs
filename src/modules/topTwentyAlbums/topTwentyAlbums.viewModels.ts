@@ -1,4 +1,4 @@
-export interface ListAlbumEntry {
+export interface AlbumEntryListItem {
     'id': string;
     'title': string;
     'artist': string;

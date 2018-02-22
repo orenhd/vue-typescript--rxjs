@@ -1,7 +1,15 @@
 <template>
-        <select class="genre-select" name="genre" :value="currentGenreId" @change="genreSelected($event.target.value)">
-            <option v-for="genre in genres" :key="genre.id" :value="genre.id">{{genre.title}}</option>
-        </select>
+    <v-flex xs3 class="mx-3 mt-3">
+        <v-select
+        v-if="currentGenre"
+        :items="genres"
+        :label="$t('topTwentyAlbums.genre')"
+        item-text="title"
+        item-value="id"
+        :value="currentGenre ? currentGenre.id : null" 
+        @change="genreSelected($event)"
+        ></v-select>
+    </v-flex>
 </template>
 
 <script lang="ts">
@@ -14,10 +22,10 @@ import * as viewModels from '../topTwentyAlbums.ViewModels';
 export default class GenreSelectionBar extends Vue {
 
     @Prop() genres: dataModels.ITunesGenre[];
-    @Prop() currentGenreId: number;
+    @Prop() currentGenre: dataModels.ITunesGenre;
 
-    genreSelected(genreId: number) {
-        this.$emit('genreSelected', genreId);
+    genreSelected(genreId: string) {
+        this.$emit('genreSelected', parseInt(genreId));
     }
     
 }

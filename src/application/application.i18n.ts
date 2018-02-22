@@ -10,10 +10,12 @@ const i18n = new VueI18n({
             },
             clickingExample: {
                 clickingExample: 'Clicking Example',
+                userName: 'User Name',
                 homeButtonClicked: 'Home button was clicked 1 time | Home button was clicked {count} times',
                 homeButtonClickedOutside: 'Home button was clicked outside 1 time | Home button was clicked outside {count} times'
             },
             topTwentyAlbums: {
+                genre: 'Genre',
                 topTwentyAlbums: 'Top Twenty Albums'
             }
         }

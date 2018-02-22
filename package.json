@@ -1,7 +1,7 @@
 {
-  "name": "vue-typescript--vuex",
+  "name": "vue-typescript--rxjs",
   "version": "1.0.0",
-  "description": "A Vue.js + Typescript and Vuex boilerplate playground, based on Microsoft's Typescript-Vue-Starter - https://github.com/Microsoft/TypeScript-Vue-Starter",
+  "description": "A fork of vue-typescript--vuex, replacing Vuex state management with a set of module services maintaining RxJS BehaviorSubjects",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -25,6 +25,7 @@
     "less-loader": "^4.0.5",
     "node-sass": "^4.5.3",
     "npm-run-all": "^4.0.2",
+    "rxjs": "^5.5.6",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.0.3",
@@ -35,9 +36,8 @@
     "vue-loader": "^12.0.3",
     "vue-property-decorator": "^6.0.0",
     "vue-router": "^3.0.1",
+    "vue-rx": "^5.0.0",
     "vue-template-compiler": "^2.5.2",
-    "vuex": "^3.0.1",
-    "vuex-persist": "^1.1.1",
     "webpack": "^2.5.0",
     "webpack-dev-server": "^2.5.0"
   }

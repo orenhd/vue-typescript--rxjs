@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+
 import { ITunesAlbumEntry, ITunesGenre } from '../topTwentyAlbums.DataModels';
 
 const ITUNES_GET_TOP_ALBUMS: string = 'https://itunes.apple.com/us/rss/topalbums/limit=20/genre=14/json';
@@ -14,20 +16,20 @@ const iTunesGenreIdsCache: ITunesGenre[] = [
 
 const iTunesTopTwentyAlbumsByGenreIdCache: {[genreId: number]: ITunesAlbumEntry[]} = {};
 
-export function getGenres(): Promise<ITunesGenre[]> {
-	return new Promise<ITunesGenre[]>((resolve) => {
+export function getGenres(): Observable<ITunesGenre[]> {
+	return new Observable<ITunesGenre[]>((observer) => {
 		setTimeout(() => {
-			resolve(iTunesGenreIdsCache);
+			observer.next(iTunesGenreIdsCache);
 		}, Math.floor(Math.random() * 100));
 	});
 }
 
-export function getTopTwentyAlbumsByGenreId(genreId: number):Promise<ITunesAlbumEntry[]> {
-	return new Promise<ITunesAlbumEntry[]>((resolve, reject) => {
-		if (isNaN(genreId) || genreId < 0) { reject('getTopTwentyAlbumsByGenreId error'); }
+export function getTopTwentyAlbumsByGenreId(genreId: number):Observable<ITunesAlbumEntry[]> {
+	return new Observable<ITunesAlbumEntry[]>((observer) => {
+		if (isNaN(genreId) || genreId < 0) { observer.error('getTopTwentyAlbumsByGenreId error'); }
 
 		//first, try from cache
-		else if (iTunesTopTwentyAlbumsByGenreIdCache[genreId]) { resolve(iTunesTopTwentyAlbumsByGenreIdCache[genreId]); }
+		else if (iTunesTopTwentyAlbumsByGenreIdCache[genreId]) { observer.next(iTunesTopTwentyAlbumsByGenreIdCache[genreId]); }
 
 		else {
 			let iTunesGetTopAlbumsApi:string = ITUNES_GET_TOP_ALBUMS.replace('genre=14', `genre=${genreId}`);
@@ -40,18 +42,18 @@ export function getTopTwentyAlbumsByGenreId(genreId: number):Promise<ITunesAlbum
 						if (json.feed && json.feed.entry) {
 							//also store in private service cache
 							iTunesTopTwentyAlbumsByGenreIdCache[genreId] = json.feed.entry;
-							resolve(json.feed.entry);
+							observer.next(json.feed.entry);
 						} else {
-							reject('getTopTwentyAlbumsByGenreId error');
+							observer.error('getTopTwentyAlbumsByGenreId error');
 						}
 					}).catch((err) => {
 						// error
-						reject(err);
+						observer.error(err);
 					});
 				}
 			}).catch((err) => {
 				// error
-				reject(err);
+				observer.error(err);
 			});
 		}
 	});

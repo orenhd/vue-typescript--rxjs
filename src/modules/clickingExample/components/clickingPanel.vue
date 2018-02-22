@@ -1,8 +1,8 @@
 <template>
     <div class="clicking-panel">
-        <md-button class="home-button md-icon-button md-raised" @click="homeButtonClicked" v-click-outside="homeButtonClickedOutside">
-            <md-icon>home</md-icon>
-        </md-button>
+        <v-btn class="mb-3" fab dark small color="pink" @click="homeButtonClicked" v-click-outside="homeButtonClickedOutside">
+            <v-icon>home</v-icon>
+        </v-btn>
         <p class="clicking-data-text" v-if="this.clickingData && this.clickingData.homeButtonClickCount">{{$tc('clickingExample.homeButtonClicked', this.clickingData.homeButtonClickCount, { count: this.clickingData.homeButtonClickCount })}}</p>
         <p class="clicking-data-text" v-if="this.clickingData && this.clickingData.homeButtonClickOutsideCount">{{$tc('clickingExample.homeButtonClickedOutside', this.clickingData.homeButtonClickOutsideCount, { count: this.clickingData.homeButtonClickOutsideCount })}}</p>
     </div>

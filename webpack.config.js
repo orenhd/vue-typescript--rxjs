@@ -60,7 +60,6 @@ var config = {
   externals: {
 	  "vue" : "Vue",
     "vue-router" : "VueRouter",
-    "vuex" : "Vuex",
     "vue-i18n" : "VueI18n"
 	},
   devtool: '#eval-source-map'

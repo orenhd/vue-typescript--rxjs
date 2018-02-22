@@ -6,25 +6,26 @@
 
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Vuex from "vuex";
 import VueI18n from 'vue-i18n';
 
-import { Store } from "vuex"; 
+import VueRx from 'vue-rx'
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import AppRoutes from "./application/application.routes";
-
-import AppStoreOptions from "./application/application.store";
 
 import AppI18n from "./application/application.i18n";
 
 import Application from "./application/application.vue"
 
-declare var VueMaterial: any;
+declare var Vuetify: any;
 
-Vue.use(VueMaterial.default);
-Vue.use(Vuex);
+Vue.use(Vuetify);
 
-const store: Store<any> = new Vuex.Store(AppStoreOptions);
+Vue.use(VueRx, {
+    Observable,
+    BehaviorSubject
+});
 
 const appRouter: VueRouter = new VueRouter({
     routes: AppRoutes
@@ -33,7 +34,6 @@ const appRouter: VueRouter = new VueRouter({
 let vueInstance = new Vue({
     el: "#app",
     template: '<application></application>',
-    store,
     components: { Application },
     router: appRouter,
     i18n: AppI18n

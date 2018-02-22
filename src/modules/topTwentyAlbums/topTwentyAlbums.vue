@@ -1,53 +1,47 @@
 <template>
     <div class="top-twenty-albums">
         <genre-selection-bar 
-            :genres="genres"
-            :currentGenreId="currentGenreId"
+            :genres="genres$"
+            :currentGenre="currentGenre$"
             @genreSelected="loadAlbumEntriesByGenreId($event)"
         >
         </genre-selection-bar>
-        <albums-list :listAlbumEntries="listAlbumEntries"></albums-list>
+        <albums-list :albumEntriesList="albumEntriesList$"></albums-list>
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { Observable } from 'rxjs/Observable';
 
 import GenreSelectionBar from "./components/genreSelectionBar.vue";
 import AlbumsList from "./components/albumsList.vue";
 
+import * as topTwentyAlbumsService from "./topTwentyAlbums.service";
+
 import * as dataModels from './topTwentyAlbums.DataModels';
 import * as viewModels from './topTwentyAlbums.ViewModels';
 
-@Component({components: {GenreSelectionBar, AlbumsList}, directives: {}})
+@Component({components: {GenreSelectionBar, AlbumsList}, directives: {}, subscriptions: () => {
+    return {
+            genres$: topTwentyAlbumsService.genres$,
+            currentGenre$: topTwentyAlbumsService.currentGenre$,
+            albumEntriesList$ : topTwentyAlbumsService.albumEntriesList$
+    }
+}})
 export default class TopTwentyAlbums extends Vue {
     
     /* Lifecycle Methods */
 
     beforeCreate() {
-        this.$store.dispatch('topTwentyAlbums/loadGenreIds');
+        topTwentyAlbumsService.loadGenreIds();
     }
 
-    /* Actions Mapping */
+    /* Component Methods */
 
     loadAlbumEntriesByGenreId(genreId: number) {
-        this.$store.dispatch('topTwentyAlbums/loadAlbumEntriesByGenreId', genreId);
+        topTwentyAlbumsService.loadAlbumEntriesByGenreId(genreId);
     }
-
-    /* Getters Mapping */
-
-    get genres(): dataModels.ITunesGenre[] {
-        return this.$store.state.topTwentyAlbums.genres;
-    }
-
-    get currentGenreId(): number {
-        return this.$store.state.topTwentyAlbums.currentGenreId;
-    }
-
-    get listAlbumEntries(): viewModels.ListAlbumEntry[] {
-        return this.$store.getters['topTwentyAlbums/listAlbumEntries'];
-    }
-    
 }
 </script>
 

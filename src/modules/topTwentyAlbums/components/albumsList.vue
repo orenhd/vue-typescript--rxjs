@@ -1,16 +1,18 @@
 <template>
-    <md-list class="md-triple-line">
-        <md-list-item v-for="listAlbumEntry in listAlbumEntries" :key="listAlbumEntry.id">
-            <md-avatar>
-                <img :src="listAlbumEntry.thumbnail"></img>
-            </md-avatar>
-            <div class="md-list-item-text">
-                <span>{{listAlbumEntry.title}}</span>
-                <span>{{listAlbumEntry.artist}}</span>
-                <p>{{listAlbumEntry.copyright}}</p>
-            </div>
-        </md-list-item>
-    </md-list>
+        <v-list three-line>
+          <template v-for="(albumEntry, index) in albumEntriesList">
+            <v-list-tile avatar :key="albumEntry.id">
+              <v-list-tile-avatar>
+                <img :src="albumEntry.thumbnail">
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>{{albumEntry.title}}</v-list-tile-title>
+                <v-list-tile-sub-title>{{albumEntry.artist}}</v-list-tile-sub-title>
+                <v-list-tile-action-text>{{albumEntry.copyright}}</v-list-tile-action-text>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
+        </v-list>
 </template>
 
 <script lang="ts">
@@ -21,7 +23,7 @@ import * as viewModels from '../topTwentyAlbums.viewModels';
 @Component({components: {}, directives: {}})
 export default class AlbumsList extends Vue {
 
-    @Prop() listAlbumEntries: viewModels.ListAlbumEntry[];
+    @Prop() albumEntriesList: viewModels.AlbumEntryListItem[];
 }
 </script>
 

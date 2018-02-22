@@ -1,12 +1,12 @@
 <template>
-    <div class="clicking-example">
+    <div class="clicking-example mx-3 my-3">
         <user-name-bar
-            :userName="userName"
+            :userName="userName$"
             @userNameChanged="setUserName($event)"
         >
         </user-name-bar>
         <clicking-panel
-            :clickingData="clickingData"
+            :clickingData="clickingData$"
             @homeButtonClicked="homeButtonClicked()"
             @homeButtonClickedOutside="homeButtonClickedOutside()"
         >
@@ -16,37 +16,37 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { Observable } from 'rxjs/Observable';
 
 import UserNameBar from "./components/userNameBar.vue";
 import ClickingPanel from "./components/clickingPanel.vue";
 
 import ClickOutside from "../../shared/directives/clickOutside";
 
+import * as clickingExampleService from "./clickingExample.service";
+
 import * as dataModels from "./clickingExample.dataModels";
 
-@Component({components: {UserNameBar, ClickingPanel}})
+@Component({components: {UserNameBar, ClickingPanel}, subscriptions: () => {
+    return {
+        userName$: clickingExampleService.userName$,
+        clickingData$: clickingExampleService.clickingData$
+    }
+}})
 export default class ClickingExample extends Vue {
 
-    /* Map Mutations */
+    /* Component Methods */
+
     setUserName(userName: string) {
-        this.$store.commit('clickingExample/setUserName', userName);
+        clickingExampleService.setUserName(userName);
     }
 
     homeButtonClicked() {
-        this.$store.commit('clickingExample/homeButtonClicked');
+        clickingExampleService.homeButtonClicked();
     }
 
     homeButtonClickedOutside() {
-        this.$store.commit('clickingExample/homeButtonClickedOutside');
-    }
-
-    /* Map Getters */
-    get userName(): string {
-        return this.$store.state.clickingExample.userName;
-    }
-
-    get clickingData(): dataModels.ClickingData {
-        return this.$store.state.clickingExample.clickingData;
+        clickingExampleService.homeButtonClickedOutside();
     }
 }
 </script>

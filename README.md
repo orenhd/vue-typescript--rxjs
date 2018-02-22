@@ -1,17 +1,13 @@
-# vue-typescript--vuex
-A Vue.js + Typescript and Vuex boilerplate playground, based on Microsoft's [Typescript-Vue-Starter](https://github.com/Microsoft/TypeScript-Vue-Starter).
+# vue-typescript--rxjs
+A fork of [vue-typescript--vuex](https://github.com/orenhd/vue-typescript--vuex), replacing Vuex state management with a set of module services maintaining RxJS BehaviorSubjects
 
-A live version of this repository can be found [here](https://orenhd.github.io/vue-typescript--vuex/) (Dev mode).
+A live version of this repository can be found [here](https://orenhd.github.io/vue-typescript--RxJS/) (Dev mode).
 
-## Added features
-- [Vuex](https://www.npmjs.com/package/vuex) architecture, demonstrated by two exemplary modules.
-- npm commands to run with Webpack watch and dev-server features, build for production.
-- All Vue.js related packages are loaded from CDN and marked on Webpack as externals.
-- Scss and Less support, including via Vue.js single file components.
-- Basic module-based routing functionality using the official [vue-router](https://www.npmjs.com/package/vue-router).
-- Importing [Vue Material](https://vuematerial.io/) components.
-- A homebrew ClickOutside directive.
-- A service for fetching album charts data from an iTunes rss, including an internal caching mechanism.
-- Syncing of Vuex store state on localStorage using [vuex-persist](https://www.npmjs.com/package/vuex-persist).
-- Using the built-in Vuex logger plugin (Dev mode only).
-- i18n support using [vue-i18n](https://www.npmjs.com/package/vue-i18n).
+## Replaced features
+- Replaced Vuex modules with a set of module services, responsible for:
+ - Maintaining RxJS BehaviorSubjects as the module's data properties, including assignment of default values.
+ - Exposing Methods for transmitting values to the above BehaviorSubjects.
+ - Exposing Selectors of Observable type, for fetching the module data in view-digestable models by the Module components.
+ - Local Storage synchronization of selected module data properties.
+- Implemented [vue-rx](https://www.npmjs.com/package/vue-rx) for subscribing to the module services BehaviorSubjects inside templates of module components.
+- Replaced Vue Material with [Vuetify](https://vuetifyjs.com/en/) for Material components implementation.
