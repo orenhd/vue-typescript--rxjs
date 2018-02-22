@@ -1,7 +1,7 @@
 # vue-typescript--rxjs
 A fork of [vue-typescript--vuex](https://github.com/orenhd/vue-typescript--vuex), replacing Vuex state management with a set of module services maintaining RxJS BehaviorSubjects
 
-A live version of this repository can be found [here](https://orenhd.github.io/vue-typescript--RxJS/) (Dev mode).
+A live version of this repository can be found [here](https://orenhd.github.io/vue-typescript--rxjs/) (Dev mode).
 
 ## Replaced features
 - Replaced Vuex modules with a set of module services, responsible for:
