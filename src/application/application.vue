@@ -69,7 +69,4 @@ export default class Application extends Vue {
 </script>
 
 <style lang="scss" scoped>
-    .md-app {
-        height: 100vh;
-    }
 </style>

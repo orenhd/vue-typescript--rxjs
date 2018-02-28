@@ -1,7 +1,7 @@
 /**
  * index.ts
  * - Responsible only for init. of the Vue and Vuex instances, 
- * by loading the main Application Component, including its routing and store options.
+ * by loading the main Application Component, as well as the application's routing and localization.
  **/
 
 import Vue from "vue";
