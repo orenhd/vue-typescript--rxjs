@@ -2,7 +2,10 @@ import { Observable } from 'rxjs/Observable';
 
 import { ITunesAlbumEntry, ITunesGenre } from '../topTwentyAlbums.DataModels';
 
-const ITUNES_GET_TOP_ALBUMS: string = 'https://itunes.apple.com/us/rss/topalbums/limit=20/genre=14/json';
+const ITUNES_GET_TOP_ALBUMS_API: string = 'https://itunes.apple.com/us/rss/topalbums';
+
+const getITunesTopAlbumsByGenreIdUrl = (genreId: number) => 
+    `${ITUNES_GET_TOP_ALBUMS_API}/limit=20/genre=${genreId}/json`;
 
 // iTunes rss api doesn't really have a genre ids endpoint 
 // - the following cache object is used as a mockup
@@ -32,11 +35,11 @@ export function getTopTwentyAlbumsByGenreId(genreId: number):Observable<ITunesAl
 		else if (iTunesTopTwentyAlbumsByGenreIdCache[genreId]) { observer.next(iTunesTopTwentyAlbumsByGenreIdCache[genreId]); }
 
 		else {
-			let iTunesGetTopAlbumsApi:string = ITUNES_GET_TOP_ALBUMS.replace('genre=14', `genre=${genreId}`);
+			const iTunesGetTopAlbumsApi:string = getITunesTopAlbumsByGenreIdUrl(genreId);
 			fetch(iTunesGetTopAlbumsApi, {
 				method: 'get'
 			}).then((response) => {
-				let contentType = response.headers.get("content-type");
+				const contentType = response.headers.get("content-type");
 				if(contentType && contentType.includes('text/javascript')) {
 					response.json().then((json) => {
 						if (json.feed && json.feed.entry) {

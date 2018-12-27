@@ -31,7 +31,7 @@ const appRouter: VueRouter = new VueRouter({
     routes: AppRoutes
 }) 
 
-let vueInstance = new Vue({
+const vueInstance = new Vue({
     el: "#app",
     template: '<application></application>',
     components: { Application },

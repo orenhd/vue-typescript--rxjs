@@ -4,10 +4,10 @@ interface ClickOutsideDirectiveOptions extends DirectiveOptions {
     'handler'?: EventListener
 }
 
-let ClickOutside: ClickOutsideDirectiveOptions = {
+const ClickOutside: ClickOutsideDirectiveOptions = {
     'bind': (el: HTMLElement, binding: VNodeDirective) => {
         if (!binding.value || typeof binding.value !== 'function') return;
-        let callback: Function = binding.value;
+        const callback: Function = binding.value;
         ClickOutside.handler = function (event: Event) {
             let curEl: HTMLElement = <HTMLElement> event.target;
             if (curEl === el) {

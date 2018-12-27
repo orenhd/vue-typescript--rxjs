@@ -17,7 +17,7 @@ interface localStorageObjModel {
 const _localStorageObj: localStorageObjModel = parseLocalStorageObj(localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
 
 function parseLocalStorageObj(localStorageItem: string):localStorageObjModel {
-    let parsedLocalStorageObj: any = JSON.parse(localStorageItem);
+    const parsedLocalStorageObj: any = JSON.parse(localStorageItem);
     return <localStorageObjModel> { 
         userName: parsedLocalStorageObj.userName || '',
         clickingData: typeLocalStorageClickingData(parsedLocalStorageObj.clickingData)
@@ -27,7 +27,7 @@ function parseLocalStorageObj(localStorageItem: string):localStorageObjModel {
 function typeLocalStorageClickingData(parsedLocalStorageClickingDataItem: any): dataModels.ClickingData | undefined {
     if (!parsedLocalStorageClickingDataItem) return; 
     
-    let typedLocalStorageClickingData: any = <dataModels.ClickingData> {};
+    const typedLocalStorageClickingData: any = <dataModels.ClickingData> {};
     
     Object.keys(parsedLocalStorageClickingDataItem).forEach((clickingDataKey) => {
         typedLocalStorageClickingData[clickingDataKey] = parseInt(parsedLocalStorageClickingDataItem[clickingDataKey] || '0');
@@ -49,14 +49,14 @@ export function setUserName(userName: string):void {
 
 export function homeButtonClicked():void {
     _clickingData$.take(1).subscribe((clickingData: dataModels.ClickingData) => {
-        let updateClickingData: dataModels.ClickingData = Object.assign({}, clickingData, { homeButtonClickCount: clickingData.homeButtonClickCount + 1 });
+        const updateClickingData: dataModels.ClickingData = Object.assign({}, clickingData, { homeButtonClickCount: clickingData.homeButtonClickCount + 1 });
         _clickingData$.next(updateClickingData);
     });
 }
 
 export function homeButtonClickedOutside():void {
     _clickingData$.take(1).subscribe((clickingData: dataModels.ClickingData) => {
-        let updateClickingData: dataModels.ClickingData = Object.assign({}, clickingData, { homeButtonClickOutsideCount: clickingData.homeButtonClickOutsideCount + 1 });
+        const updateClickingData: dataModels.ClickingData = Object.assign({}, clickingData, { homeButtonClickOutsideCount: clickingData.homeButtonClickOutsideCount + 1 });
         _clickingData$.next(updateClickingData);
     });
 }
