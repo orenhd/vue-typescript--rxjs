@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
-
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import * as dataModels from './clickingExample.dataModels';
 
@@ -63,9 +63,9 @@ export function homeButtonClickedOutside():void {
 
 /* Selectors */
 
-export const userName$: Observable<string> = _userName$.map(userName => userName);
+export const userName$: Observable<string> = _userName$.distinctUntilChanged();
 
-export const clickingData$: Observable<dataModels.ClickingData> = _clickingData$.map(clickingData => clickingData);
+export const clickingData$: Observable<dataModels.ClickingData> = _clickingData$;
 
 /* Local Storage Subscription */
 

@@ -78,7 +78,7 @@ const _albumEntriesToLoadByGenreIdSubscription$ = _albumEntriesToLoadByGenreId$
 
 /* Public Selectors */
 
-export const genres$: Observable<dataModels.ITunesGenre[]> = _genres$.map(genres => genres);
+export const genres$: Observable<dataModels.ITunesGenre[]> = _genres$;
 
 export const currentGenre$: Observable<dataModels.ITunesGenre> = _currentGenreId$.withLatestFrom(_genres$, (currentGenreId, genres) => {
     const genresIds: number[] = genres.map(genre => genre.id);
